@@ -17,7 +17,9 @@ python -m venv .venv
 아래 실행 예제의 `python`은 설치한 환경의 Python을 사용하세요.
 PowerShell에서는 `.\.venv\Scripts\python.exe`로 바꿔 실행할 수 있습니다.
 
-데이터셋과 모델 가중치, 학습 결과는 Git에 포함하지 않습니다.
+데이터셋과 기본 가중치 `yolo11n.pt`는 Git에 포함하지 않습니다.
+학습된 사용자 모델 `models/coins_battery.pt`와 `runs/`의 학습 설정,
+성능 지표, 그래프, 예측 이미지 및 `best.pt` / `last.pt`는 Git에 포함합니다.
 공유받은 원본 데이터셋을 다음 구조로 배치하세요. 데이터셋에 포함된
 README와 라이선스/출처 표기도 함께 유지하세요.
 
@@ -36,7 +38,8 @@ Object_Detection_Test/
 ```
 
 기본 가중치 `yolo11n.pt`도 이 폴더에 배치하세요.
-학습된 사용자 모델을 공유받았다면 `models/coins_battery.pt`에 배치하세요.
+학습된 사용자 모델 `models/coins_battery.pt`는 저장소에 포함되어 있습니다.
+탐지만 실행할 때는 원본 데이터셋이 필요하지 않습니다.
 `combined_dataset`은 학습 스크립트가 생성합니다.
 현재 학습 및 탐지는 CPU를 사용합니다.
 
@@ -45,8 +48,28 @@ Object_Detection_Test/
 저장소 소유자가 GitHub의 Settings → Collaborators에서 친구를 초대하고,
 친구는 초대를 수락한 뒤 저장소를 복제합니다.
 코드 변경은 개인 브랜치에서 커밋하고 GitHub Pull Request로 병합하세요.
-각자 학습한 설정과 검증 지표를 비교하고, 모델 파일은 별도로 공유합니다.
+각자 학습한 설정과 검증 지표를 비교하고, 공유할 학습 결과와 모델도 커밋하세요.
 GitHub에 코드를 공유하는 것만으로 여러 PC의 학습이 자동으로 합쳐지지는 않습니다.
+
+## 공유된 학습 결과
+
+`runs/coins_battery/`에는 30 epochs 학습 결과가 있습니다.
+
+| 항목 | 파일 |
+| --- | --- |
+| 학습 설정 | `runs/coins_battery/args.yaml` |
+| epoch별 성능 | `runs/coins_battery/results.csv` |
+| 학습 그래프 | `runs/coins_battery/results.png` |
+| 최종 검증 지표 | `runs/coins_battery/validation.json` |
+| 혼동행렬 및 PR 곡선 | `runs/coins_battery/confusion_matrix.png`, `BoxPR_curve.png` |
+| 학습 가중치 | `runs/coins_battery/weights/best.pt`, `weights/last.pt` |
+| 탐지에 사용하는 가중치 | `models/coins_battery.pt` |
+
+최종 검증의 precision은 0.6561, recall은 0.7444,
+mAP50은 0.7169, mAP50-95는 0.5713입니다.
+`runs/detect/val/`에는 별도 검증 실행의 그래프와 예측 이미지가 있습니다.
+`args.yaml`은 실제 학습 당시 기록으로, 원래 PC의 절대 경로를 포함합니다.
+다른 PC에서 학습하려면 위 데이터셋 배치를 마친 뒤 `train_custom.py`를 실행하세요.
 
 ## 학습
 

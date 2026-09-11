@@ -4,9 +4,11 @@ coin.v1i.yolov11/
 combined_dataset/
 *.zip
 
-# 모델과 학습 결과
+# 기본 모델과 임시 로그 (학습 결과 및 공유할 가중치는 포함)
 *.pt
-runs/
+!models/coins_battery.pt
+!runs/**/weights/best.pt
+!runs/**/weights/last.pt
 *.log
 *.pid
 

@@ -1,0 +1,21 @@
+# 데이터셋
+battery.yolov11/
+coin.v1i.yolov11/
+combined_dataset/
+*.zip
+
+# 모델과 학습 결과
+*.pt
+runs/
+*.log
+*.pid
+
+# Python 환경과 임시 파일
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# 개인 설정
+.env
+.env.*
